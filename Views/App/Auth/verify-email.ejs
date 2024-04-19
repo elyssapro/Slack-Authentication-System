@@ -1,0 +1,68 @@
+<section class="container-fluid bg-body-tertiary d-block">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 col-lg-4" style="min-width: 500px;">
+            <div class="card bg-white mb-5 mt-5 border-0" style="box-shadow: 0 12px 15px rgba(0, 0, 0, 0.02);">
+                <div class="card-body p-5 text-center">
+                    <h4>Verify</h4>
+                    <p>Your code was sent to you via email</p>
+
+                    <div class="otp-field mb-4">
+                        <input id="code_1" type="number" />
+                        <input id="code_2" type="number" disabled />
+                        <input id="code_3" type="number" disabled />
+                        <input id="code_4" type="number" disabled />
+                        <input id="code_5" type="number" disabled />
+                        <input id="code_6" type="number" disabled />
+                    </div>
+
+                    <button id="verify-code" class="btn btn-primary mb-3">
+                        Verify
+                    </button>
+
+                    <p class="resend text-muted mb-0">
+                        Didn't receive code? <a href="">Request again</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        const url = window.location.href;
+        const parts = url.split("/");
+        const idFromUrl = parts[parts.length - 1];
+        $("#verify-code").click(function(e){
+            const code_1 = $("#code_1").val()
+            const code_2 = $("#code_2").val()
+            const code_3 = $("#code_3").val()
+            const code_4 = $("#code_4").val()
+            const code_5 = $("#code_5").val()
+            const code_6 = $("#code_6").val()
+            const code = code_1 + code_2 + code_3 + code_4 + code_5 + code_6
+            
+            const verificationCode = localStorage.getItem("user_verification_code");
+            if(!verificationCode) {
+                console.log("No verification code found in the local storage.")
+                return false
+            }
+            const completeCode = JSON.stringify({userVerificationCode: code, systemVerificationCode: verificationCode})
+            $.ajax({
+                url: `/verify-code/${idFromUrl}`,
+                method: "POST",
+                contentType: "application/json",
+                data: completeCode,
+                success: function(response) {
+                    localStorage.removeItem("user_verification_code");
+                    window.location.href = `/dashboard/${response.userID}`
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseJSON.error)
+                }
+            })
+        })
+    })
+</script>
+

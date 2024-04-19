@@ -1,0 +1,39 @@
+{
+  "name": "authentication-system",
+  "version": "1.0.0",
+  "description": "This is simple authentication system that enable the user to create an account, register, reset their password and go on their dashboard",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "auth": "nodemon auth-server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/elyssapro/Slack-Authentication-System.git"
+  },
+  "keywords": [
+    "Slack",
+    "Authentication",
+    "System"
+  ],
+  "author": "IRANKUNDA Elyssa",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/elyssapro/Slack-Authentication-System/issues"
+  },
+  "homepage": "https://github.com/elyssapro/Slack-Authentication-System#readme",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.2",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "express-ejs-layouts": "^2.5.1",
+    "express-session": "^1.18.0",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.9.6",
+    "nodemailer": "^6.9.13",
+    "nodemon": "^3.1.0",
+    "uuid": "^9.0.1"
+  }
+}
